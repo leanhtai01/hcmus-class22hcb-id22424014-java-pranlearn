@@ -10,8 +10,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 
@@ -20,7 +23,6 @@ import vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.domain.
 public class StudentFileRepository {
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
     private static final String DATA_FILE_NAME_BIN = "student.dat";
-    private static final String DATA_FILE_NAME_CSV = "student.csv";
 
     private List<Student> students;
 
@@ -42,8 +44,21 @@ public class StudentFileRepository {
         }
     }
 
-    public void exportDataToCSVFile() throws IOException {
-        try (var writer = new PrintWriter(DATA_FILE_NAME_CSV, StandardCharsets.UTF_8)) {
+    public void importDataFromCSVFile(String fileName) throws IOException {
+        List<Student> data = new ArrayList<>();
+
+        try (Stream<String> lines = Files.lines(Path.of(fileName))) {
+            lines.forEach(line -> {
+                String[] tokens = line.split(",");
+                data.add(new Student(tokens[0], tokens[1], Double.parseDouble(tokens[2]), tokens[3], tokens[4]));
+            });
+        }
+
+        students = data;
+    }
+
+    public void exportDataToCSVFile(String fileName) throws IOException {
+        try (var writer = new PrintWriter(fileName, StandardCharsets.UTF_8)) {
             this.students.stream().forEach(student -> writer.println("%s,%s,%f,%s,%s".formatted(
                     student.getId(),
                     student.getName(),

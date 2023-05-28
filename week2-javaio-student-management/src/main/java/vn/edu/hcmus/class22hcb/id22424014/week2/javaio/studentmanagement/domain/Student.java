@@ -7,10 +7,12 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Student implements Serializable {
     @Serial
     private static final long serialVersionUID = 9082532603621712690L;
