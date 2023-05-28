@@ -44,6 +44,18 @@ public class StudentService {
         return repository.findAll().stream().sorted(Comparator.comparing(Student::getId)).toList();
     }
 
+    public List<Student> getStudentsDescendingById() {
+        return repository.findAll().stream().sorted(Comparator.comparing(Student::getId).reversed()).toList();
+    }
+
+    public List<Student> getStudentsAscendingByGrade() {
+        return repository.findAll().stream().sorted(Comparator.comparing(Student::getGrade)).toList();
+    }
+
+    public List<Student> getStudentsDescendingByGrade() {
+        return repository.findAll().stream().sorted(Comparator.comparing(Student::getGrade).reversed()).toList();
+    }
+
     public boolean isStudentExists(String id) {
         return repository.isStudentExists(id);
     }

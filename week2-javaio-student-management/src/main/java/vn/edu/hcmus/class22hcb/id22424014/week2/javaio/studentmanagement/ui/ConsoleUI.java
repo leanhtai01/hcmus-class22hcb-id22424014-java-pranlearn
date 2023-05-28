@@ -18,6 +18,9 @@ public class ConsoleUI {
                 case 2 -> updateStudent(service);
                 case 3 -> deleteStudent(service);
                 case 4 -> displayStudents(service.getStudentsAscendingById());
+                case 5 -> displayStudents(service.getStudentsDescendingById());
+                case 6 -> displayStudents(service.getStudentsAscendingByGrade());
+                case 7 -> displayStudents(service.getStudentsDescendingByGrade());
                 default -> System.console().writer().println("Invalid choice. Please try again.");
             }
 
