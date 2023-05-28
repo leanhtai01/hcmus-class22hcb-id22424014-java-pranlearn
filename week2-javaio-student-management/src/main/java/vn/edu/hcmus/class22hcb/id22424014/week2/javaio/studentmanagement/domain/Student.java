@@ -7,12 +7,10 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Student implements Serializable {
     @Serial
     private static final long serialVersionUID = 9082532603621712690L;
@@ -50,5 +48,10 @@ public class Student implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, grade, address, note);
+    }
+
+    @Override
+    public String toString() {
+        return "%12s\t%30s\t%6.2f\t%30s\t%50s%n".formatted(id, name, grade, address, note);
     }
 }

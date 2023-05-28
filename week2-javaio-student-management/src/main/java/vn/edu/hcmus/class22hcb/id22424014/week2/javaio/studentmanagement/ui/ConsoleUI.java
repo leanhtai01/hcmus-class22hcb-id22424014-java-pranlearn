@@ -1,8 +1,59 @@
 package vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.ui;
 
+import java.io.IOException;
+import java.util.List;
+
+import vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.domain.Student;
+import vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.service.StudentService;
+
 public class ConsoleUI {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException, IOException {
+        final StudentService service = new StudentService();
+
         displayMenu();
+        int choice = Integer.parseInt(System.console().readLine());
+        while (choice != 0) {
+            switch (choice) {
+                case 1 -> addStudent(service);
+                case 4 -> displayStudents(service.getStudentsAscendingById());
+                default -> System.console().writer().println("Invalid choice. Please try again.");
+            }
+
+            System.console().writer().println();
+            displayMenu();
+            choice = Integer.parseInt(System.console().readLine());
+        }
+
+        service.saveData();
+    }
+
+    private static void addStudent(StudentService service) {
+        System.console().writer().println("Add new student:");
+
+        System.console().writer().printf("%s", "ID: ");
+        Student student = new Student(System.console().readLine());
+
+        System.console().writer().printf("%s", "Name: ");
+        student.setName(System.console().readLine());
+
+        System.console().writer().printf("%s", "Grade: ");
+        student.setGrade(Double.parseDouble(System.console().readLine()));
+
+        System.console().writer().printf("%s", "Address: ");
+        student.setAddress(System.console().readLine());
+
+        System.console().writer().printf("%s", "Note: ");
+        student.setNote(System.console().readLine());
+
+        service.addStudent(student);
+    }
+
+    private static void displayStudents(List<Student> students) {
+        // display header
+        System.console().writer().printf("%12s\t%30s\t%6s\t%30s\t%50s%n", "ID", "Name", "Grade", "Address", "Note");
+        for (Student student : students) {
+            System.console().writer().print(student);
+        }
     }
     
     private static void displayMenu() {
@@ -17,6 +68,6 @@ public class ConsoleUI {
         System.console().writer().println("8. Import data from CSV.");
         System.console().writer().println("9. Export data to CSV.");
         System.console().writer().println("0. Exit.");
-        System.console().writer().print("Please enter your choice: ");
+        System.console().printf("Please enter your choice: ");
     }
 }
