@@ -56,6 +56,14 @@ public class StudentService {
         return repository.findAll().stream().sorted(Comparator.comparing(Student::getGrade).reversed()).toList();
     }
 
+    public void importDataFromCSVFile(String fileName) throws IOException {
+        repository.importDataFromCSVFile(fileName);
+    }
+
+    public void exportDataToCSVFile(String fileName) throws IOException {
+        repository.exportDataToCSVFile(fileName);
+    }
+
     public boolean isStudentExists(String id) {
         return repository.isStudentExists(id);
     }

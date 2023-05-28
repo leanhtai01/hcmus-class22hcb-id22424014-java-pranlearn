@@ -21,6 +21,8 @@ public class ConsoleUI {
                 case 5 -> displayStudents(service.getStudentsDescendingById());
                 case 6 -> displayStudents(service.getStudentsAscendingByGrade());
                 case 7 -> displayStudents(service.getStudentsDescendingByGrade());
+                case 8 -> importDataFromCSVFile(service);
+                case 9 -> exportDataToCSVFile(service);
                 default -> System.console().writer().println("Invalid choice. Please try again.");
             }
 
@@ -91,6 +93,26 @@ public class ConsoleUI {
         System.console().writer().printf("%12s\t%30s\t%6s\t%30s\t%50s%n", "ID", "Name", "Grade", "Address", "Note");
         for (Student student : students) {
             System.console().writer().println(student);
+        }
+    }
+
+    private static void importDataFromCSVFile(StudentService service) {
+        System.console().writer().printf("%s", "Enter full path to CSV file to import: ");
+        try {
+            service.importDataFromCSVFile(System.console().readLine());
+            System.console().writer().println("Successfully import CSV file.");
+        } catch (IOException exception) {
+            System.console().writer().println("Please enter valid path!");
+        }
+    }
+
+    private static void exportDataToCSVFile(StudentService service) {
+        System.console().writer().printf("%s", "Enter full path to exported CSV file: ");
+        try {
+            service.exportDataToCSVFile(System.console().readLine());
+            System.console().writer().println("Successfully export CSV file.");
+        } catch (IOException exception) {
+            System.console().writer().println("Please enter valid path!");
         }
     }
     

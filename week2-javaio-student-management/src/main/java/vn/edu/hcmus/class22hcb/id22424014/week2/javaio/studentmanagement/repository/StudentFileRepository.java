@@ -59,7 +59,7 @@ public class StudentFileRepository {
 
     public void exportDataToCSVFile(String fileName) throws IOException {
         try (var writer = new PrintWriter(fileName, StandardCharsets.UTF_8)) {
-            this.students.stream().forEach(student -> writer.println("%s,%s,%f,%s,%s".formatted(
+            this.students.forEach(student -> writer.println("%s,%s,%f,%s,%s".formatted(
                     student.getId(),
                     student.getName(),
                     student.getGrade(),
