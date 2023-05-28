@@ -45,6 +45,6 @@ public class Student implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, grade, note);
+        return Objects.hash(id, name, grade, address, note);
     }
 }
