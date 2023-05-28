@@ -6,10 +6,8 @@ import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -23,8 +21,20 @@ public class Student implements Serializable {
     private String address;
     private String note;
 
+    public Student() {
+        id = "unknown id";
+        name = "unknown name";
+        grade = 0.0;
+        address = "unknown address";
+        note = "unknown note";
+    }
+
     public Student(String id) {
         this.id = id;
+        name = "unknown name";
+        grade = 0.0;
+        address = "unknown address";
+        note = "unknown note";
     }
 
     @Override

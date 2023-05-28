@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,13 +19,14 @@ import vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.domain.
 
 public class StudentFileRepository {
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
-    private static final String DATA_FILE_NAME = "student.dat";
+    private static final String DATA_FILE_NAME_BIN = "student.dat";
+    private static final String DATA_FILE_NAME_CSV = "student.csv";
 
     private List<Student> students;
 
     public StudentFileRepository() throws ClassNotFoundException {
         // try to load students data
-        try (var reader = new ObjectInputStream(new FileInputStream(DATA_FILE_NAME))) {
+        try (var reader = new ObjectInputStream(new FileInputStream(DATA_FILE_NAME_BIN))) {
             @SuppressWarnings("unchecked")
             List<Student> rawData = (List<Student>) reader.readObject();
             this.students = rawData;
@@ -33,9 +36,20 @@ public class StudentFileRepository {
         }
     }
 
-    public void writeDataToFile() throws IOException {
-        try (var writer = new ObjectOutputStream(new FileOutputStream(DATA_FILE_NAME))) {
+    public void writeDataToBinFile() throws IOException {
+        try (var writer = new ObjectOutputStream(new FileOutputStream(DATA_FILE_NAME_BIN))) {
             writer.writeObject(students);
+        }
+    }
+
+    public void exportDataToCSVFile() throws IOException {
+        try (var writer = new PrintWriter(DATA_FILE_NAME_CSV, StandardCharsets.UTF_8)) {
+            this.students.stream().forEach(student -> writer.println("%s,%s,%f,%s,%s".formatted(
+                    student.getId(),
+                    student.getName(),
+                    student.getGrade(),
+                    student.getAddress(),
+                    student.getNote())));
         }
     }
 
