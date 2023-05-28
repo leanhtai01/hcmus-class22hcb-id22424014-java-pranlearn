@@ -15,13 +15,13 @@ import org.slf4j.Logger;
 
 import vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.domain.Student;
 
-public class StudentRepository {
+public class StudentFileRepository {
     private static final Logger LOGGER = getLogger(lookup().lookupClass());
     private static final String DATA_FILE_NAME = "student.dat";
 
     private List<Student> students;
 
-    public StudentRepository() throws ClassNotFoundException {
+    public StudentFileRepository() throws ClassNotFoundException {
         // try to load students data
         try (var reader = new ObjectInputStream(new FileInputStream(DATA_FILE_NAME))) {
             @SuppressWarnings("unchecked")
