@@ -61,13 +61,28 @@ public class StudentFileRepository {
         return students.get(students.indexOf(new Student(id)));
     }
 
-    public boolean save(Student student) {
+    public boolean add(Student student) {
         if (students.contains(student))
             return false;
 
         students.add(student);
 
         return true;
+    }
+
+    public boolean update(Student updatedStudent) {
+        for (Student student : students) {
+            if (student.equals(updatedStudent)) {
+                student.setName(updatedStudent.getName());
+                student.setGrade(updatedStudent.getGrade());
+                student.setAddress(updatedStudent.getAddress());
+                student.setNote(updatedStudent.getNote());
+
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public boolean deleteById(String id) {

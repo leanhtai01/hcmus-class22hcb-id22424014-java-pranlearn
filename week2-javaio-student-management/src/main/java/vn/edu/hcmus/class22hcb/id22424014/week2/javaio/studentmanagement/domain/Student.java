@@ -15,19 +15,11 @@ public class Student implements Serializable {
     @Serial
     private static final long serialVersionUID = 9082532603621712690L;
 
-    private String id;
+    private final String id;
     private String name;
     private double grade;
     private String address;
     private String note;
-
-    public Student() {
-        id = "unknown id";
-        name = "unknown name";
-        grade = 0.0;
-        address = "unknown address";
-        note = "unknown note";
-    }
 
     public Student(String id) {
         this.id = id;
