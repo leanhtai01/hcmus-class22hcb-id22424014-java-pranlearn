@@ -15,6 +15,7 @@ public class ConsoleUI {
         while (choice != 0) {
             switch (choice) {
                 case 1 -> addStudent(service);
+                case 2 -> updateStudent(service);
                 case 4 -> displayStudents(service.getStudentsAscendingById());
                 default -> System.console().writer().println("Invalid choice. Please try again.");
             }
@@ -48,11 +49,37 @@ public class ConsoleUI {
         service.addStudent(student);
     }
 
+    private static void updateStudent(StudentService service) {
+        displayStudents(service.getStudents());
+        System.console().writer().printf("%s", "ID of updated student: ");
+        String id = System.console().readLine();
+
+        if (service.isStudentExists(id)) {
+            Student updatedStudent = new Student(id);
+
+            System.console().writer().printf("%s", "Updated Name: ");
+            updatedStudent.setName(System.console().readLine());
+
+            System.console().writer().printf("%s", "Updated Grade: ");
+            updatedStudent.setGrade(Double.parseDouble(System.console().readLine()));
+
+            System.console().writer().printf("%s", "Updated Address: ");
+            updatedStudent.setAddress(System.console().readLine());
+
+            System.console().writer().printf("%s", "Updated Note: ");
+            updatedStudent.setNote(System.console().readLine());
+
+            service.updateStudent(updatedStudent);
+        } else {
+            System.console().writer().println("Student with ID: '%s' isn't exists!".formatted(id));
+        }
+    }
+
     private static void displayStudents(List<Student> students) {
         // display header
         System.console().writer().printf("%12s\t%30s\t%6s\t%30s\t%50s%n", "ID", "Name", "Grade", "Address", "Note");
         for (Student student : students) {
-            System.console().writer().print(student);
+            System.console().writer().println(student);
         }
     }
     
@@ -68,6 +95,6 @@ public class ConsoleUI {
         System.console().writer().println("8. Import data from CSV.");
         System.console().writer().println("9. Export data to CSV.");
         System.console().writer().println("0. Exit.");
-        System.console().printf("Please enter your choice: ");
+        System.console().writer().printf("%s", "Please enter your choice: ");
     }
 }

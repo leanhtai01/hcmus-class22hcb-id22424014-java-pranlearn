@@ -96,8 +96,12 @@ public class StudentFileRepository {
                 return true;
             }
         }
-        
+
         return false;
+    }
+    
+    public boolean isStudentExists(String id) {
+        return students.contains(new Student(id));
     }
 
     public boolean deleteById(String id) {

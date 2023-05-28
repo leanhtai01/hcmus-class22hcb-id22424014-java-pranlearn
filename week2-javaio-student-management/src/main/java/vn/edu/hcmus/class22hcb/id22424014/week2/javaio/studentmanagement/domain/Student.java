@@ -52,6 +52,6 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "%12s\t%30s\t%6.2f\t%30s\t%50s%n".formatted(id, name, grade, address, note);
+        return "%12s\t%30s\t%6.2f\t%30s\t%50s".formatted(id, name, grade, address, note);
     }
 }

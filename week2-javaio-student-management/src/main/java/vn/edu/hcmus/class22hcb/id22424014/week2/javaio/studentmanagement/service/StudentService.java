@@ -20,9 +20,22 @@ public class StudentService {
         }
     }
 
-    public List<Student> getStudentsAscendingById() {
-        repository.findAll().sort(Comparator.comparing(Student::getId));
+    public void updateStudent(Student student) {
+        if (!repository.update(student)) {
+            System.console().writer().println("Student with ID: '%s' isn't exists!".formatted(student.getId()));
+        }
+    }
+
+    public List<Student> getStudents() {
         return repository.findAll();
+    }
+
+    public List<Student> getStudentsAscendingById() {
+        return repository.findAll().stream().sorted(Comparator.comparing(Student::getId)).toList();
+    }
+
+    public boolean isStudentExists(String id) {
+        return repository.isStudentExists(id);
     }
 
     public void saveData() throws IOException {
