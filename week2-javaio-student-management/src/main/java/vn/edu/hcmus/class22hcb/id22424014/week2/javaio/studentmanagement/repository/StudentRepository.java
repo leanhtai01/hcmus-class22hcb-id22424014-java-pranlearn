@@ -1,21 +1,41 @@
 package vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.repository;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+
+import org.slf4j.Logger;
 
 import vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.domain.Student;
 
 public class StudentRepository {
+    private static final Logger LOGGER = getLogger(lookup().lookupClass());
+    private static final String DATA_FILE_NAME = "student.dat";
+
     private List<Student> students;
 
-    public StudentRepository() throws IOException {
-        this.students = new ArrayList<>();
-        try (var fis = new FileInputStream("src/main/java/resources/application.properties")) {
-            var properties = new Properties();
-            properties.load(fis);
+    public StudentRepository() throws ClassNotFoundException {
+        // try to load students data
+        try (var reader = new ObjectInputStream(new FileInputStream(DATA_FILE_NAME))) {
+            @SuppressWarnings("unchecked")
+            List<Student> rawData = (List<Student>) reader.readObject();
+            this.students = rawData;
+        } catch (IOException exception) {
+            LOGGER.warn("Data not found!");
+            this.students = new ArrayList<>();
+        }
+    }
+
+    public void writeDataToFile() throws IOException {
+        try (var writer = new ObjectOutputStream(new FileOutputStream(DATA_FILE_NAME))) {
+            writer.writeObject(students);
         }
     }
 
