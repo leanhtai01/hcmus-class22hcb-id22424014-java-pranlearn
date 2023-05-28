@@ -22,9 +22,16 @@
         <slf4j-api.version>2.0.7</slf4j-api.version>
         <slf4j-simple.version>2.0.7</slf4j-simple.version>
 
-        <!-- plugins -->
+        <!-- plugins version -->
         <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
         <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+
+        <!-- plugin configurations -->
+        <maven-jar-plugin.execution.phase>none</maven-jar-plugin.execution.phase>
+        <maven-assembly-plugin.execution.phase>none</maven-assembly-plugin.execution.phase>
+
+        <!-- set main class -->
+        <mainClass>none</mainClass>
     </properties>
 
     <dependencies>
@@ -64,7 +71,30 @@
                     <executions>
                         <execution>
                             <id>default-jar</id>
-                            <phase>none</phase>
+                            <phase>${maven-jar-plugin.execution.phase}</phase>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                        <archive>
+                            <manifest>
+                                <mainClass>${mainClass}</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>${maven-assembly-plugin.execution.phase}</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
                         </execution>
                     </executions>
                 </plugin>

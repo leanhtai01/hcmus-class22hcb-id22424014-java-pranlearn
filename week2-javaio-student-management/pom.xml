@@ -16,39 +16,13 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- plugins -->
-        <maven-assembly-plugin.version>3.6.0</maven-assembly-plugin.version>
-    </properties>
+        <!-- plugin configurations -->
+        <maven-assembly-plugin.execution.phase>package</maven-assembly-plugin.execution.phase>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <configuration>
-                        <descriptorRefs>
-                            <descriptorRef>jar-with-dependencies</descriptorRef>
-                        </descriptorRefs>
-                        <archive>
-                            <manifest>
-                                <mainClass>
-                                    vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.ui.ConsoleUI
-                                </mainClass>
-                            </manifest>
-                        </archive>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>single</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
+        <!-- set main class -->
+        <mainClass>
+            vn.edu.hcmus.class22hcb.id22424014.week2.javaio.studentmanagement.ui.ConsoleUI
+        </mainClass>
+    </properties>
 
 </project>
