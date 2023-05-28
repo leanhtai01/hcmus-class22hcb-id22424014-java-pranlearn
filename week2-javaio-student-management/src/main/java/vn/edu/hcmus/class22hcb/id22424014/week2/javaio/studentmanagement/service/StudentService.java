@@ -23,6 +23,16 @@ public class StudentService {
     public void updateStudent(Student student) {
         if (!repository.update(student)) {
             System.console().writer().println("Student with ID: '%s' isn't exists!".formatted(student.getId()));
+        } else {
+            System.console().writer().println("Updated successfully!");
+        }
+    }
+
+    public void deleteStudent(String id) {
+        if (!repository.deleteById(id)) {
+            System.console().writer().println("Student with ID: '%s' isn't exists!".formatted(id));
+        } else {
+            System.console().writer().println("Deleted successfully!");
         }
     }
 

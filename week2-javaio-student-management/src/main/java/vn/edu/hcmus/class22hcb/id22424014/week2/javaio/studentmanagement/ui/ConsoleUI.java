@@ -16,6 +16,7 @@ public class ConsoleUI {
             switch (choice) {
                 case 1 -> addStudent(service);
                 case 2 -> updateStudent(service);
+                case 3 -> deleteStudent(service);
                 case 4 -> displayStudents(service.getStudentsAscendingById());
                 default -> System.console().writer().println("Invalid choice. Please try again.");
             }
@@ -73,6 +74,13 @@ public class ConsoleUI {
         } else {
             System.console().writer().println("Student with ID: '%s' isn't exists!".formatted(id));
         }
+    }
+
+    private static void deleteStudent(StudentService service) {
+        displayStudents(service.getStudents());
+        System.console().writer().printf("%s", "ID of deleted student: ");
+        String id = System.console().readLine();
+        service.deleteStudent(id);
     }
 
     private static void displayStudents(List<Student> students) {
